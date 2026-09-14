@@ -1,0 +1,19 @@
+<svg width="185" height="201" viewBox="0 0 185 201" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M63.2498 122V56.3075C62.5029 56.7149 61.6541 57.1223 60.7035 57.5297C59.753 57.9371 58.7345 58.3785 57.6481 58.8538C56.6296 59.2611 55.6111 59.6685 54.5926 60.0759C53.642 60.4833 52.7593 60.8907 51.9445 61.2981V48.6689C52.6914 48.2615 53.7439 47.7183 55.1019 47.0393C56.4598 46.2924 57.9197 45.4776 59.4814 44.5949C61.043 43.7122 62.5029 42.8295 63.8609 41.9468C65.2189 40.9962 66.2373 40.1814 66.9163 39.5024H80.2586V122H63.2498Z" fill="#0D0D0D"/>
+<path d="M63.2498 122V56.3075C62.5029 56.7149 61.6541 57.1223 60.7035 57.5297C59.753 57.9371 58.7345 58.3785 57.6481 58.8538C56.6296 59.2611 55.6111 59.6685 54.5926 60.0759C53.642 60.4833 52.7593 60.8907 51.9445 61.2981V48.6689C52.6914 48.2615 53.7439 47.7183 55.1019 47.0393C56.4598 46.2924 57.9197 45.4776 59.4814 44.5949C61.043 43.7122 62.5029 42.8295 63.8609 41.9468C65.2189 40.9962 66.2373 40.1814 66.9163 39.5024H80.2586V122H63.2498Z" fill="url(#paint0_linear_40_12)"/>
+<g filter="url(#filter0_f_40_12)">
+<ellipse cx="76.224" cy="88.4996" rx="80.4644" ry="6.75467" transform="rotate(-45 76.224 88.4996)" fill="black" fill-opacity="0.15"/>
+</g>
+<rect x="10.3936" y="152.328" width="178.492" height="54.1873" transform="rotate(-44.9964 10.3936 152.328)" fill="white"/>
+<defs>
+<filter id="filter0_f_40_12" x="3.13055" y="15.4059" width="146.187" height="146.187" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="7.99674" result="effect1_foregroundBlur_40_12"/>
+</filter>
+<linearGradient id="paint0_linear_40_12" x1="49.2979" y1="75.5001" x2="89.2979" y2="75.5001" gradientUnits="userSpaceOnUse">
+<stop stop-color="#EB3131"/>
+<stop offset="1" stop-color="#DDA439"/>
+</linearGradient>
+</defs>
+</svg>

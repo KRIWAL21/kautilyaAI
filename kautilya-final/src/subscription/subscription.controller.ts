@@ -1,0 +1,163 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Body,
+  UseGuards,
+  Delete,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { SubscriptionService } from './subscription.service';
+import { PurchaseSubscriptionDto } from './dto/purchase-subscription.dto';
+import { jwtGuard } from 'src/core/guards/jwt.guard';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { UserRole } from 'src/common/enum/user-role.enum';
+
+@ApiTags('Agent')
+@ApiBearerAuth()
+@Controller('agent/subscriptions')
+@UseGuards(jwtGuard, RolesGuard)
+@Roles(UserRole.AGENT)
+export class SubscriptionController {
+  constructor(private readonly subscriptionService: SubscriptionService) {}
+
+  @Get('plans')
+  @ApiOperation({
+    summary: 'Get all subscription plans',
+    description:
+      'Retrieve list of available subscription plans with pricing and features',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Subscription plans retrieved successfully',
+  })
+  async getPlans() {
+    const data = await this.subscriptionService.getAllPlans();
+
+    return {
+      data,
+      message: 'Plans retrieved successfully',
+    };
+  }
+
+  @Get('current')
+  @ApiOperation({
+    summary: 'Get current active subscription',
+    description:
+      'Retrieve details of agent current subscription plan including expiry and benefits',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Current subscription details retrieved successfully',
+  })
+  async getCurrentSubscription(@CurrentUser() user: any) {
+    const data = await this.subscriptionService.getCurrentSubscription(
+      user.userId,
+    );
+
+    return {
+      data,
+      message: 'Current subscription retrieved successfully',
+    };
+  }
+
+  @Post('purchase')
+  @ApiOperation({
+    summary: 'Purchase subscription plan',
+    description:
+      'Purchase or upgrade to a subscription plan to unlock premium features and benefits',
+  })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Subscription purchased successfully and activated immediately',
+  })
+  @ApiResponse({ status: 400, description: 'Invalid plan or payment details' })
+  async purchaseSubscription(
+    @Body() purchaseDto: PurchaseSubscriptionDto,
+    @CurrentUser() user: any,
+  ) {
+    const data = await this.subscriptionService.purchaseSubscription(
+      user.userId,
+      purchaseDto,
+    );
+
+    return {
+      data,
+      message: 'Subscription purchased successfully',
+    };
+  }
+
+  @Get('commission-tracking')
+  @ApiOperation({ summary: 'Get commission tracking details' })
+  @ApiResponse({ status: 200, description: 'Commission tracking retrieved' })
+  async getCommissionTracking(@CurrentUser() user: any) {
+    const data = await this.subscriptionService.getCommissionTracking(
+      user.userId,
+    );
+
+    return {
+      data,
+      message: 'Commission tracking retrieved successfully',
+    };
+  }
+
+  @Get('benefits')
+  @ApiOperation({ summary: 'Get subscription benefits' })
+  @ApiResponse({ status: 200, description: 'Benefits retrieved successfully' })
+  async getBenefits(@CurrentUser() user: any) {
+    const data = await this.subscriptionService.getSubscriptionBenefits(
+      user.userId,
+    );
+
+    return {
+      data,
+      message: 'Benefits retrieved successfully',
+    };
+  }
+
+  @Delete('cancel')
+  @ApiOperation({ summary: 'Cancel current subscription' })
+  @ApiResponse({
+    status: 200,
+    description: 'Subscription cancelled successfully',
+  })
+  async cancelSubscription(@CurrentUser() user: any) {
+    const data = await this.subscriptionService.cancelSubscription(user.userId);
+
+    return {
+      data,
+      message: 'Subscription cancelled successfully',
+    };
+  }
+}
+
+// Admin controller for managing subscription plans
+@ApiTags('Admin')
+@ApiBearerAuth()
+@Controller('admin/subscriptions')
+@UseGuards(jwtGuard, RolesGuard)
+@Roles(UserRole.ADMIN)
+export class AdminSubscriptionController {
+  constructor(private readonly subscriptionService: SubscriptionService) {}
+
+  @Post('seed-plans')
+  @ApiOperation({ summary: 'Seed default subscription plans' })
+  @ApiResponse({ status: 201, description: 'Plans seeded successfully' })
+  async seedPlans() {
+    const data = await this.subscriptionService.seedPlans();
+
+    return {
+      data: null,
+      message: data.message,
+    };
+  }
+}
